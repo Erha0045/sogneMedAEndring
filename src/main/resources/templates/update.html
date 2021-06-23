@@ -1,34 +1,31 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
-<div lang="en" xmlns:th="http://www.thymeleaf.org/">
-  <head>
-    <meta charset="UTF-8">
-    <title>Opret Sogn</title>
-</div>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>Opdater Sogn</title>
+
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
 <body>
-<div class ="container">
-  <br>
-  <fieldset style="width: 100%" >
-  <form method="post" action="/update">
-    <label for="id">id:</label>
-    <input type="number" id="id" name="id"><br><br>
-    <label for="sognekode">sognekode:</label>
-    <input type="number" id="sognekode" name="sognekode"><br><br>
-    <label for="navn">navn:</label>
-    <input type="text" id="navn" name="navn"><br><br>
-    <label for="kommune">kommune:</label>
-    <input type="number" id="kommune" name="kommune"><br><br>
-    <label for="smittetryk">smittetryk:</label>
-    <input type="number" id="smittetryk" name="smittetryk"><br><br>
-    <label for="nedlukningStart">nedlukningStart:</label>
-    <input type="date" id="nedlukningStart" name="nedlukningStart"><br><br>
-    <input type="submit" value="Submit">
 
+<div align="center" class="container my-2">
 
+  <h1>Opdater sogn</h1>
+  <form action="#" th:action="@{/update}" th:object="${sogne}" , method="post">
+    <input type="number" placeholder="id" name="id" class="form-control mb-4 col-4">
+    <input type="number" placeholder="sogn kode" name="sognekode" class="form-control mb-4 col-4">
+    <input type="text" placeholder="navn" name="navn" class="form-control mb-4 col-4">
+    <input type="number" placeholder="kommune" name="kommune" class="form-control mb-4 col-4">
+    <input type="number" placeholder="smittetryk" name="smittetryk" step="any" class="form-control mb-4 col-4">
+    <input type="date" placeholder="nedlukningStart (YYYY-MM-DD)" name="nedlukningStart"
+           class="form-control mb-4 col-4">
+    <button type="submit" class="btn btn-info col-2"> Gem Sogn</button>
   </form>
-  </fieldset>
 
 </div>
 </body>

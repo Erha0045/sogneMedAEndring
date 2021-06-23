@@ -1,6 +1,9 @@
 package com.example.sogne.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,7 +17,9 @@ public class Sogne {
     private int sognekode;
     private String navn;
     private double smittetryk;
-    private Date nedlukningStart;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate nedlukningStart;
+
 
     @OneToOne
     @JoinColumn(name = "kommune_id")
@@ -23,7 +28,7 @@ public class Sogne {
     public Sogne() {
     }
 
-    public Sogne(int sognekode, String navn, double smittetryk, Date nedlukningStart, Kommune kommune) {
+    public Sogne(int sognekode, String navn, double smittetryk, LocalDate nedlukningStart, Kommune kommune) {
         this.sognekode = sognekode;
         this.navn = navn;
         this.smittetryk = smittetryk;
@@ -31,7 +36,7 @@ public class Sogne {
         this.kommune = kommune;
     }
 
-    public Sogne(int id, int sognekode, String navn, double smittetryk, Date nedlukningStart, Kommune kommune) {
+    public Sogne(int id, int sognekode, String navn, double smittetryk, LocalDate nedlukningStart, Kommune kommune) {
         this.id = id;
         this.sognekode = sognekode;
         this.navn = navn;
@@ -72,11 +77,11 @@ public class Sogne {
         this.smittetryk = smittetryk;
     }
 
-    public Date getNedlukningStart() {
+    public LocalDate getNedlukningStart() {
         return nedlukningStart;
     }
 
-    public void setNedlukningStart(Date nedlukningStart) {
+    public void setNedlukningStart(LocalDate nedlukningStart) {
         this.nedlukningStart = nedlukningStart;
     }
 
@@ -86,17 +91,5 @@ public class Sogne {
 
     public void setKommune(Kommune kommune) {
         this.kommune = kommune;
-    }
-
-    @Override
-    public String toString() {
-        return "Sogne{" +
-                "id=" + id +
-                ", sognekode=" + sognekode +
-                ", navn='" + navn + '\'' +
-                ", smittetryk=" + smittetryk +
-                ", nedlukningStart=" + nedlukningStart +
-                ", kommune=" + kommune +
-                '}';
     }
 }

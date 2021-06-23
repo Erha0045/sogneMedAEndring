@@ -33,8 +33,6 @@ public class Kommune {
 
     @Override
     public String toString() {
-        return "Kommune{" +"id=" + id +
-                ", navn='" + navn + '\'' +
-                '}';
+        return  "id: " + id +"  :  " + navn;
     }
 }

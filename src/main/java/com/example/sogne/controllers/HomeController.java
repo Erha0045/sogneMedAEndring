@@ -13,29 +13,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Controller
 public class HomeController {
-@Autowired
+    @Autowired
     SogneService sogneService;
 
-@Autowired
+    @Autowired
     KommuneSevice kommuneSevice;
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         Iterable<Sogne> sogneSet;
-        sogneSet=sogneService.findAll();
-        model.addAttribute("sogneSet",sogneSet);
+        sogneSet = sogneService.findAll();
+        model.addAttribute("sogneSet", sogneSet);
         return "index";
     }
 
     @GetMapping("/createSogn")
-    public String createSogn(){
+    public String createSogn() {
         return "/createSogn";
     }
-
 
 
     @PostMapping("/create")
@@ -43,14 +43,14 @@ public class HomeController {
             @RequestParam("sognekode") int sognekode,
             @RequestParam("navn") String navn,
             @RequestParam("smittetryk") double smittetryk,
-
-            @RequestParam("nedlukningStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date nedlukningStart,
-            @RequestParam("kommune")Kommune kommune){
-        Sogne sogne = new Sogne(sognekode, navn, smittetryk, nedlukningStart,kommune );
+            @RequestParam("nedlukningStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate nedlukningStart,
+            @RequestParam("kommune") Kommune kommune) {
+        Sogne sogne = new Sogne(sognekode, navn, smittetryk, nedlukningStart, kommune);
         sogneService.create(sogne);
         return "redirect:/";
 
     }
+
 
     @GetMapping("/delete")
     public String delete(){
@@ -64,19 +64,9 @@ public class HomeController {
     }
 
     @GetMapping("/update")
-    public String updateSogn(){
+    public String updateSogn() {
         return "/update";
     }
-//    @GetMapping("/update/{id}")
-//    public String updateSogn(@PathVariable(value = "id") int id, Model model) {
-//        // Get Sogn from the service
-//        Sogne sogn = sogneService.findById(id);
-//
-//        // Set Sogn as a model attribute
-//        model.addAttribute("sogn", sogn);
-//        return "update_sogn";
-//    }
-
 
     @PostMapping("/update")
     public String updateSogn(
@@ -84,9 +74,9 @@ public class HomeController {
             @RequestParam("sognekode") int sognekode,
             @RequestParam("navn") String navn,
             @RequestParam("smittetryk") double smittetryk,
-            @RequestParam("nedlukningStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date nedlukningStart,
-            @RequestParam("kommune")Kommune kommune){
-        Sogne sogne = new Sogne(id, sognekode, navn, smittetryk, nedlukningStart,kommune );
+            @RequestParam("nedlukningStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate nedlukningStart,
+            @RequestParam("kommune") Kommune kommune) {
+        Sogne sogne = new Sogne(id, sognekode, navn, smittetryk, nedlukningStart, kommune);
         sogneService.update(sogne);
         return "redirect:/";
 

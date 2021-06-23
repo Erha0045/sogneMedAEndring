@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class SogneController {
+public class SogneRestController {
 
     @Autowired
     private SogneRepository sogneRepository;
 
-    public SogneController(SogneRepository sogneRepository) {
+    public SogneRestController(SogneRepository sogneRepository) {
         this.sogneRepository = sogneRepository;
     }
 
