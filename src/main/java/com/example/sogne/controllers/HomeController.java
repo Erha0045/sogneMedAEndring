@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -62,11 +63,21 @@ public class HomeController {
         return  "redirect:/";
     }
 
-
     @GetMapping("/update")
     public String updateSogn(){
         return "/update";
     }
+//    @GetMapping("/update/{id}")
+//    public String updateSogn(@PathVariable(value = "id") int id, Model model) {
+//        // Get Sogn from the service
+//        Sogne sogn = sogneService.findById(id);
+//
+//        // Set Sogn as a model attribute
+//        model.addAttribute("sogn", sogn);
+//        return "update_sogn";
+//    }
+
+
     @PostMapping("/update")
     public String updateSogn(
             @RequestParam("id") int id,

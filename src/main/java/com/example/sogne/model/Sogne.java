@@ -17,7 +17,7 @@ public class Sogne {
     private Date nedlukningStart;
 
     @OneToOne
-    @JoinColumn(name = "kommune_id", nullable = false)
+    @JoinColumn(name = "kommune_id")
     private Kommune kommune;
 
     public Sogne() {
