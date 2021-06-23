@@ -4,11 +4,13 @@ import com.example.sogne.model.Kommune;
 import com.example.sogne.model.Sogne;
 import com.example.sogne.repository.KommuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public class KommuneSevice {
     @Autowired
     KommuneRepository kommuneRepository;

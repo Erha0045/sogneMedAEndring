@@ -2,27 +2,30 @@ package com.example.sogne.controllers;
 
 import com.example.sogne.model.Kommune;
 import com.example.sogne.model.Sogne;
-import com.example.sogne.repository.SogneRepository;
+import com.example.sogne.service.KommuneSevice;
+import com.example.sogne.service.SogneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class HomeController {
 @Autowired
-SogneRepository sogneRepository;
+    SogneService sogneService;
+
+@Autowired
+    KommuneSevice kommuneSevice;
 
     @GetMapping("/")
     public String index(Model model){
         Iterable<Sogne> sogneSet;
-        sogneSet=sogneRepository.findAll();
+        sogneSet=sogneService.findAll();
         model.addAttribute("sogneSet",sogneSet);
         return "index";
     }
@@ -43,7 +46,7 @@ SogneRepository sogneRepository;
             @RequestParam("nedlukningStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date nedlukningStart,
             @RequestParam("kommune")Kommune kommune){
         Sogne sogne = new Sogne(sognekode, navn, smittetryk, nedlukningStart,kommune );
-        sogneRepository.save(sogne);
+        sogneService.create(sogne);
         return "redirect:/";
 
     }
@@ -55,7 +58,7 @@ SogneRepository sogneRepository;
 
     @PostMapping("/delete")
     public String delete(@RequestParam("id")int id) {
-        sogneRepository.deleteById(id);
+        sogneService.deleteById(id);
         return  "redirect:/";
     }
 
@@ -73,7 +76,7 @@ SogneRepository sogneRepository;
             @RequestParam("nedlukningStart") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date nedlukningStart,
             @RequestParam("kommune")Kommune kommune){
         Sogne sogne = new Sogne(id, sognekode, navn, smittetryk, nedlukningStart,kommune );
-        sogneRepository.save(sogne);
+        sogneService.update(sogne);
         return "redirect:/";
 
     }
