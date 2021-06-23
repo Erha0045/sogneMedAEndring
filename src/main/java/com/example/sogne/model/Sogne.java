@@ -1,5 +1,6 @@
 package com.example.sogne.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class Sogne {
     private LocalDate nedlukningStart;
 
 
-    @OneToOne
+    @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "kommune_id")
     private Kommune kommune;
 
