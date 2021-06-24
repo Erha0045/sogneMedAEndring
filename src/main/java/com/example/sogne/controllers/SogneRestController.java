@@ -6,7 +6,6 @@ import com.example.sogne.service.SogneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,17 +17,14 @@ public class SogneRestController {
 
     @Autowired
     private SogneRepository sogneRepository;
-
-    public SogneRestController(SogneRepository sogneRepository) {
-        this.sogneRepository = sogneRepository;
-    }
+    @Autowired
+    private SogneService sogneService;
 
     // HTTP Get List
     @GetMapping("/sogne")
     public ResponseEntity<List<Sogne>> findAll(){
-        //findAll recipes and return
         List<Sogne> sogneList = new ArrayList<>();
-        for (Sogne sogne:sogneRepository.findAll()){
+        for (Sogne sogne:sogneService.findAll()){
             sogneList.add(sogne);
         }
         return ResponseEntity.status(HttpStatus.OK).body(sogneList);
@@ -38,7 +34,7 @@ public class SogneRestController {
     @GetMapping("/sogne/{id}")
     public ResponseEntity<Optional<Sogne>> findById(@PathVariable int id)
     {
-        Optional<Sogne> optionalSogne = sogneRepository.findById(id);
+        Optional<Sogne> optionalSogne = Optional.ofNullable(sogneService.findById(id));
         if (optionalSogne.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(optionalSogne);
         }
@@ -49,10 +45,9 @@ public class SogneRestController {
     }
 
     // HTTP Post, ie. create
-    @CrossOrigin(origins = "*", exposedHeaders = "Location")
     @PostMapping(value = "/sogne", consumes = "application/json")
     public ResponseEntity<Sogne> create(@RequestBody Sogne sogne) {
-        Sogne newSogne = sogneRepository.save(sogne);
+        Sogne newSogne = sogneService.saveSogn(sogne);
         //insert location in response header
         return ResponseEntity.ok(newSogne);
     }
@@ -81,6 +76,5 @@ public class SogneRestController {
         sogneRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("{ 'msg' : 'deleted' }");
     }
-
 
 }

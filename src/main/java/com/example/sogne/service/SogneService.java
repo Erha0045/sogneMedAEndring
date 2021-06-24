@@ -43,6 +43,10 @@ public class SogneService {
     public void deleteById(int id){
         sogneRepository.deleteById(id);
     }
+    public Sogne saveSogn(Sogne sogne) {
+        this.sogneRepository.save(sogne);
+        return sogne;
+    }
 
 
 

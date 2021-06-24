@@ -9,26 +9,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Controller
 public class HomeController {
     @Autowired
     SogneService sogneService;
 
-    @Autowired
-    KommuneSevice kommuneSevice;
 
     @GetMapping("/")
     public String index(Model model) {
-        Iterable<Sogne> sogneSet;
-        sogneSet = sogneService.findAll();
-        model.addAttribute("sogneSet", sogneSet);
+        model.addAttribute("sogneSet", sogneService.findAll());
         return "index";
     }
 
@@ -79,6 +73,5 @@ public class HomeController {
         Sogne sogne = new Sogne(id, sognekode, navn, smittetryk, nedlukningStart, kommune);
         sogneService.update(sogne);
         return "redirect:/";
-
     }
 }
